@@ -3,8 +3,10 @@ describe 'Vending machine page' do
     it 'visits a specific vending machine page and sees all snack for that machine' do
       owner = Owner.create(name: "Sam's Snacks")
       dons  = owner.machines.create(location: "Don's Mixed Drinks")
-      snack_one = dons.snacks.create(name: "Cherry", price: 1)
-      snack_two = dons.snacks.create(name: "Choco", price: 2)
+      snack_one = Snack.create(name: "Cherry", price: 1)
+      snack_two = Snack.create(name: "Choco", price: 2)
+      stock_dons_1 = VendingMachineSnack.create(machine_id: dons.id, snack_id: snack_one.id)
+      stock_dons_2 = VendingMachineSnack.create(machine_id: dons.id, snack_id: snack_two.id)
 
       visit machine_path(dons)
 
@@ -16,8 +18,10 @@ describe 'Vending machine page' do
     it 'visits a specific vending machine page and sees an average price for all snacks' do
       owner = Owner.create(name: "Sam's Snacks")
       dons  = owner.machines.create(location: "Don's Mixed Drinks")
-      snack_one = dons.snacks.create(name: "Cherry", price: 4)
-      snack_two = dons.snacks.create(name: "Choco", price: 2)
+      snack_one = Snack.create(name: "Cherry", price: 1)
+      snack_two = Snack.create(name: "Choco", price: 2)
+      stock_dons_1 = VendingMachineSnack.create(machine_id: dons.id, snack_id: snack_one.id)
+      stock_dons_2 = VendingMachineSnack.create(machine_id: dons.id, snack_id: snack_two.id)
 
       average_price = (snack_one.price + snack_two.price ) / 2
 
