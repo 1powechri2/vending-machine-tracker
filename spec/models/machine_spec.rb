@@ -16,5 +16,15 @@ describe Machine do
 
       expect(dons.average_price).to eq(3)
     end
+    it 'can find count for all snacks' do
+      owner = Owner.create(name: "Sam's Snacks")
+      dons  = owner.machines.create(location: "Don's Mixed Drinks")
+      snack_one = Snack.create(name: "Cherry", price: 4)
+      snack_two = Snack.create(name: "Choco", price: 2)
+      stock_dons_1 = VendingMachineSnack.create(machine_id: dons.id, snack_id: snack_one.id)
+      stock_dons_2 = VendingMachineSnack.create(machine_id: dons.id, snack_id: snack_two.id)
+
+      expect(dons.snack_count).to eq(2)
+    end
   end
 end
